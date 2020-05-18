@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<SplitPane dividerPositions="0.7246835443037974" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cso.Fxml2controller">
+    <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <children>
+                <Label layoutX="163.0" layoutY="51.0" prefHeight="50.0" prefWidth="358.0" text="Configure Charging Station">
+                    <font>
+                        <Font size="29.0" />
+                    </font>
+                </Label>
+                <Button fx:id="Reset" layoutX="497.0" layoutY="187.0" mnemonicParsing="false" onAction="#buttonReset" prefHeight="26.0" prefWidth="72.0" text="Reset" />
+                <Pane layoutX="35.0" layoutY="143.0" prefHeight="245.0" prefWidth="414.0">
+                    <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="243.0" layoutX="21.0" stroke="BLACK" strokeType="INSIDE" width="373.0">
+                            <fill>
+                                <LinearGradient endX="1.0" endY="1.0">
+                                    <stops>
+                                        <Stop color="#41eaf0" />
+                                        <Stop color="WHITE" offset="1.0" />
+                                    </stops>
+                                </LinearGradient>
+                            </fill>
+                        </Rectangle>
+                        <Label layoutX="115.0" layoutY="24.0" text="Charging Station Property">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Text layoutX="56.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" />
+                        <Text layoutX="56.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location :" />
+                        <Text layoutX="56.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Operational status :" />
+                        <Text layoutX="56.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User :" />
+                        <Text layoutX="55.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User TransactionId :" />
+                    </children>
+                </Pane>
+                <Button fx:id="GetVariables" layoutX="490.0" layoutY="315.0" mnemonicParsing="false" onAction="#buttonGetVariables" text="Get Variables" />
+                <Button layoutX="269.0" layoutY="466.0" mnemonicParsing="false" text="Get Base Report" />
+                <Button fx:id="SetVariables" layoutX="491.0" layoutY="253.0" mnemonicParsing="false" onAction="#buttonSetVariables" text="Set Variables" />
+                <ChoiceBox fx:id="BaseReportType" layoutX="67.0" layoutY="465.0" onAction="#listenchoiceboxReport" prefHeight="26.0" prefWidth="174.0" />
+            <Text fx:id="description" layoutX="74.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="225.00000762939453" />
+            
+            <Text layoutX="90.0" layoutY="545.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="269.39999988675106" />
+            </children></AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+    </items>
+</SplitPane>

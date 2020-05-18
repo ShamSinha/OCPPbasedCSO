@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<SplitPane dividerPositions="0.72" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cso.Fxml1controller">
+    <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="669.0" prefWidth="706.0">
+            <children>
+                <Label layoutX="140.0" layoutY="40.0" prefHeight="49.0" prefWidth="386.0" text="CHARGING STATION OPERATOR">
+                    <font>
+                        <Font size="26.0" />
+                    </font>
+                </Label>
+                <Text layoutX="14.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CSMS SERVER SITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="serverSite" layoutX="140.0" layoutY="116.0" prefHeight="26.0" prefWidth="433.0" />
+                <Button fx:id="Connect" layoutX="593.0" layoutY="116.0" mnemonicParsing="false" onAction="#connectButtonAction" text="Connect" />
+                <TableView fx:id="table" layoutX="32.0" layoutY="272.0" prefHeight="246.0" prefWidth="618.0">
+                    <columns>
+                        <TableColumn fx:id="NameCol" prefWidth="145.59996795654297" text="Charging Station Name" />
+                        <TableColumn fx:id="locationCol" prefWidth="114.39999389648438" text="Location" />
+                        <TableColumn fx:id="statusCol" prefWidth="120.79998779296875" text="Operational Status" />
+                        <TableColumn fx:id="userCol" prefWidth="104.79998779296875" text="User" />
+                        <TableColumn fx:id="userTransactionIdCol" prefWidth="136.0" text="User TransactionId" />
+                    </columns>
+                </TableView>
+                <Text layoutX="45.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently Connected Charging Stations to CSMS :" />
+                <Text layoutX="311.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+                <Button fx:id="Disconnect" layoutX="585.0" layoutY="116.0" mnemonicParsing="false" onAction="#disconnectButtonAction" text="Disconnect" />
+            <Button fx:id="Configure" layoutX="527.0" layoutY="542.0" mnemonicParsing="false" onAction="#Configure" text="Configure" />
+            <Button fx:id="Refresh" layoutX="370.0" layoutY="189.0" mnemonicParsing="false" onAction="#setRefresh" text="Refresh" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="100.0" />
+            <Text layoutX="90.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="528.1367492675781" />
+            </children></AnchorPane>
+        <VBox prefHeight="658.0" prefWidth="222.0">
+            <children>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="658.0" prefWidth="232.0">
+                    <children>
+                        <Label layoutX="32.0" layoutY="26.0" prefHeight="35.0" prefWidth="148.0" text="Documentation">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+    </items>
+</SplitPane>
