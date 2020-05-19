@@ -22,7 +22,7 @@
                 <Button fx:id="Connect" layoutX="593.0" layoutY="116.0" mnemonicParsing="false" onAction="#connectButtonAction" text="Connect" />
                 <TableView fx:id="table" layoutX="32.0" layoutY="272.0" prefHeight="246.0" prefWidth="618.0">
                     <columns>
-                        <TableColumn fx:id="NameCol" prefWidth="145.59996795654297" text="Charging Station Name" />
+                        <TableColumn fx:id="nameCol" prefWidth="145.59996795654297" text="Charging Station Name" />
                         <TableColumn fx:id="locationCol" prefWidth="114.39999389648438" text="Location" />
                         <TableColumn fx:id="statusCol" prefWidth="120.79998779296875" text="Operational Status" />
                         <TableColumn fx:id="userCol" prefWidth="104.79998779296875" text="User" />

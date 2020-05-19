@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -33,30 +34,56 @@ public class Fxml1controller implements Initializable {
     @FXML public Text sessionId ;
 
     @FXML
-    TableView table = new TableView();
+    TableView<ChargingStation> table = new TableView<>();
 
 
-    @FXML TableColumn NameCol = new TableColumn();
-    @FXML TableColumn locationCol = new TableColumn();
-    @FXML TableColumn statusCol = new TableColumn();
-    @FXML TableColumn userCol = new TableColumn();
-    @FXML TableColumn userTransactionIdCol = new TableColumn();
+    @FXML
+    TableColumn<ChargingStation, String> nameCol ;
+    @FXML
+    TableColumn<ChargingStation, String> locationCol ;
+    @FXML
+    TableColumn<ChargingStation, String> statusCol ;
+    @FXML
+    TableColumn<ChargingStation, String> userCol ;
+    @FXML
+    TableColumn<ChargingStation, String> userTransactionIdCol;
 
     private final ObservableList<ChargingStation> data = FXCollections.observableArrayList();
-
-    public void add(){
-        data.add(myClientEndPoint.getChargingStation());
-        table.setItems(data);
-
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Disconnect.setVisible(false);
         Connect.setVisible(true);
 
+        nameCol = new TableColumn<ChargingStation, String>();
+        locationCol = new TableColumn<ChargingStation, String>();
+        statusCol = new TableColumn<ChargingStation, String>();
+        userCol = new TableColumn<ChargingStation, String>();
+        userTransactionIdCol = new TableColumn<ChargingStation, String>();
+
+
+        nameCol.setCellValueFactory(
+                new PropertyValueFactory<ChargingStation,String>("name")
+        );
+        locationCol.setCellValueFactory(
+                new PropertyValueFactory<ChargingStation,String>("location")
+        );
+        statusCol.setCellValueFactory(
+                new PropertyValueFactory<ChargingStation,String>("status")
+        );
+        userCol.setCellValueFactory(
+                new PropertyValueFactory<ChargingStation,String>("user")
+        );
+        userTransactionIdCol.setCellValueFactory(
+                new PropertyValueFactory<ChargingStation,String>("userTransactionId")
+        );
     }
+
+    public void add(){
+        data.add(myClientEndPoint.getChargingStation());
+        table.setItems(data);
+    }
+
 
     @FXML protected void setRefresh(ActionEvent event) {
         add();
@@ -85,7 +112,5 @@ public class Fxml1controller implements Initializable {
         window.setScene(scene);
         window.show();
     }
-
-
 
 }

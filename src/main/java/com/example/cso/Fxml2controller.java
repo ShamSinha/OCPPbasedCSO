@@ -22,8 +22,15 @@ public class Fxml2controller implements Initializable {
     @FXML public Button SetVariables ;
     @FXML public Button GetVariables ;
     @FXML public Button Reset ;
+    @FXML public Button GetMessage ;
     @FXML public ChoiceBox<String> BaseReportType ;
     @FXML public Text description ;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setChoiceForBaseReport() ;
+        listenChoiceBoxReport();
+    }
 
     @FXML
     protected void buttonSetVariables(ActionEvent event) throws IOException {
@@ -48,10 +55,20 @@ public class Fxml2controller implements Initializable {
 
     }
 
+    @FXML
+    protected void setGetMessage(ActionEvent event) throws IOException {
+        Parent configureView = FXMLLoader.load(getClass().getResource("/fxml/GetDisplayMessage.fxml"));
+        Scene scene = new Scene(configureView);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow() ;
+        window.setScene(scene);
+        window.show();
+    }
+
     public void setChoiceForBaseReport() {
         BaseReportType.setItems(FXCollections.observableArrayList("ConfigurationInventory" , "FullInventory" , "SummaryInventory")) ;
+        BaseReportType.setValue("ConfigurationInventory");
     }
-    public void listenchoiceboxReport(){
+    public void listenChoiceBoxReport(){
         BaseReportType.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> descriptionReport(newValue) ));
     }
 
@@ -67,8 +84,5 @@ public class Fxml2controller implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        setChoiceForBaseReport() ;
-    }
+
 }

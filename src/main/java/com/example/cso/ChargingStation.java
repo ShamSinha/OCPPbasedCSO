@@ -26,20 +26,12 @@ public class ChargingStation {
         return name;
     }
 
-    public void setName(String name) {
-        this.name.set(name);
-    }
-
     public String getLocation() {
         return location.get();
     }
 
     public SimpleStringProperty locationProperty() {
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location.set(location);
     }
 
     public String getOperationalStatus() {
@@ -50,10 +42,6 @@ public class ChargingStation {
         return operationalStatus;
     }
 
-    public void setOperationalStatus(String operationalStatus) {
-        this.operationalStatus.set(operationalStatus);
-    }
-
     public String getUser() {
         return user.get();
     }
@@ -62,16 +50,28 @@ public class ChargingStation {
         return user;
     }
 
-    public void setUser(String user) {
-        this.user.set(user);
-    }
-
     public String getUserTransactionId() {
         return userTransactionId.get();
     }
 
     public SimpleStringProperty userTransactionIdProperty() {
         return userTransactionId;
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
+    }
+
+    public void setLocation(String location) {
+        this.location.set(location);
+    }
+
+    public void setOperationalStatus(String operationalStatus) {
+        this.operationalStatus.set(operationalStatus);
+    }
+
+    public void setUser(String user) {
+        this.user.set(user);
     }
 
     public void setUserTransactionId(String userTransactionId) {

@@ -1,5 +1,6 @@
 package com.example.cso;
 
+import org.glassfish.tyrus.client.ClientManager;
 import org.json.JSONException;
 import org.json.JSONObject ;
 
@@ -27,17 +28,27 @@ public class MyClientEndPoint {
         return instance;
     }
 
-    public boolean connectToWebSocket(String s) {
-        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+    public boolean connectToWebSocket(String s)  {
+
+        //WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
         URI uri = URI.create(s);
+        ClientManager client = new ClientManager();
+
         try {
+            session = client.connectToServer(this,uri) ;
+        } catch (DeploymentException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+        /*try {
             session = container.connectToServer(this, uri);
 
         } catch (DeploymentException | IOException e) {
             e.printStackTrace();
 
-        }
+        }*/
         return session != null;
     }
 
