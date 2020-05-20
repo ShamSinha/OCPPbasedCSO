@@ -84,81 +84,96 @@ public class SetVariablesController implements Initializable {
                 new PropertyValueFactory<SetVariableDataType,String>("attributeValue")
         );
 
+
+
         set();
     }
+    @FXML
+    protected void DeleteButton(ActionEvent event) throws IOException{
+        ObservableList<SetVariableDataType> variableSelected , allVariables ;
+        allVariables = setVariableTable.getItems() ;
+        variableSelected = setVariableTable.getSelectionModel().getSelectedItems() ;
+
+        variableSelected.forEach(allVariables::remove);
+
+    }
+
+
+
     @FXML
     protected void AddButton(ActionEvent event) throws IOException {
         variableData.add(new SetVariableDataType(componentBox.getValue(),variableBox.getValue(),attributeTypeBox.getValue(),attributeValueField.getText())) ;
         setVariableTable.setItems(variableData);
 
-        setVariableTable.getColumns().addAll(componentCol, variableCol, attributeTypeCol, attributeValueCol);
-
         componentBox.getSelectionModel().clearSelection();
         variableBox.getSelectionModel().clearSelection();
         attributeTypeBox.getSelectionModel().clearSelection();
         attributeValueField.clear();
+
     }
 
     private void set(){
         componentBox.setItems(FXCollections.observableArrayList("AuthCtrlr" , "ClockCtrlr" ,"SecurityCtrlr" ,"TxCtrlr","DisplayMessageCtrlr","ReservationCtrlr","OCPPCommCtrlr" ,"TariffCostCtrlr" ,"DeviceDataCtrlr","SampledDataCtrlr")) ;
         componentBox.setVisibleRowCount(4);
 
-        componentBox.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                switch (componentBox.getValue()){
+        componentBox.setOnAction(event -> {
+            if(!componentBox.getSelectionModel().isEmpty()) {
+                switch (componentBox.getValue()) {
                     case "AuthCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("Enabled" , "AuthorizeRemoteStart" ,"LocalPreAuthorize")) ;
+                        variableBox.setItems(FXCollections.observableArrayList("Enabled", "AuthorizeRemoteStart", "LocalPreAuthorize"));
                         break;
                     case "SecurityCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("Identity","BasicAuthPassword","OrganizationName","CertificateEntries","SecurityProfile"));
+                        variableBox.setItems(FXCollections.observableArrayList("Identity", "BasicAuthPassword", "OrganizationName", "CertificateEntries", "SecurityProfile"));
                         break;
                     case "ClockCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("DateTime","TimeOffset","TimeSource","TimeZone"));
+                        variableBox.setItems(FXCollections.observableArrayList("DateTime", "TimeOffset", "TimeSource", "TimeZone"));
                         break;
                     case "TxCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("ChargingBeforeAcceptedEnabled","EVConnectionTimeOut","StopTxOnEVSideDisconnect","TxBeforeAcceptedEnabled","MaxEnergyOnInvalidId","StopTxOnInvalid","TxStartPoint","TxStopPoint"));
+                        variableBox.setItems(FXCollections.observableArrayList("ChargingBeforeAcceptedEnabled", "EVConnectionTimeOut", "StopTxOnEVSideDisconnect", "TxBeforeAcceptedEnabled", "MaxEnergyOnInvalidId", "StopTxOnInvalid", "TxStartPoint", "TxStopPoint"));
                         break;
                     case "DisplayMessageCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("Enabled","Available","DisplayMessages","PersonalMessageSize","SupportedFormats","SupportedPriorities"));
+                        variableBox.setItems(FXCollections.observableArrayList("Enabled", "Available", "DisplayMessages", "PersonalMessageSize", "SupportedFormats", "SupportedPriorities"));
                         break;
-                    case "ReservationCtrlr" :
-                        variableBox.setItems(FXCollections.observableArrayList("Enabled","Available","NonEvseSpecific"));
+                    case "ReservationCtrlr":
+                        variableBox.setItems(FXCollections.observableArrayList("Enabled", "Available", "NonEvseSpecific"));
                         break;
                     case "OCPPCommCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("HeartbeatInterval","RetryBackOffRepeatTimes","RetryBackOffRandomRange","RetryBackOffWaitMinimum","WebSocketPingInterval","DefaultMessageTimeout","ResetRetries","UnlockOnEVSideDisconnect"));
+                        variableBox.setItems(FXCollections.observableArrayList("HeartbeatInterval", "RetryBackOffRepeatTimes", "RetryBackOffRandomRange", "RetryBackOffWaitMinimum", "WebSocketPingInterval", "DefaultMessageTimeout", "ResetRetries", "UnlockOnEVSideDisconnect"));
                         break;
                     case "TariffCostCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("TariffFallbackMessage","TotalCostFallbackMessage","Currency"));
+                        variableBox.setItems(FXCollections.observableArrayList("TariffFallbackMessage", "TotalCostFallbackMessage", "Currency"));
                         break;
                     case "SampledDataCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("Enabled","Available","SignReadings","TxEndedInterval","TxUpdatedInterval","TxEndedMeasurands","TxStartedMeasurands","TxUpdatedMeasurands"));
+                        variableBox.setItems(FXCollections.observableArrayList("Enabled", "Available", "SignReadings", "TxEndedInterval", "TxUpdatedInterval", "TxEndedMeasurands", "TxStartedMeasurands", "TxUpdatedMeasurands"));
                         break;
                     case "DeviceDataCtrlr":
-                        variableBox.setItems(FXCollections.observableArrayList("BytesPerMessage","ItemsPerMessage","ValueSize"));
+                        variableBox.setItems(FXCollections.observableArrayList("BytesPerMessage", "ItemsPerMessage", "ValueSize"));
                         break;
-                }
-                variableBox.setVisibleRowCount(4);
-                attributeTypeBox.setItems(FXCollections.observableArrayList("Actual","Target","Minset","MaxSet"));
 
-                if (componentBox.getSelectionModel().isEmpty()){
-                    componentDescription.setText("");
                 }
+            }
+            variableBox.setVisibleRowCount(4);
+
+            if (componentBox.getSelectionModel().isEmpty()){
+                componentDescription.setText("");
+            }
+            if (!componentBox.getSelectionModel().isEmpty()) {
                 setDescription(componentBox.getValue());
             }
         });
 
 
 
-        variableBox.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                if(variableBox.getValue() != null ) {
-                    setDescription(variableBox.getValue());
-                }
-                if (variableBox.getSelectionModel().isEmpty()){
-                        variableDescription.setText("");
-                }
+        variableBox.setOnAction(event -> {
+            if(!variableBox.getSelectionModel().isEmpty()) {
+                setDescription(variableBox.getValue());
+                attributeTypeBox.setItems(FXCollections.observableArrayList("Actual","Target","Minset","MaxSet"));
+
+            }
+            if (variableBox.getSelectionModel().isEmpty()){
+                variableDescription.setText("");
+                variableBox.setItems(FXCollections.observableArrayList());
+                attributeTypeBox.setItems(FXCollections.observableArrayList());
             }
         });
 
