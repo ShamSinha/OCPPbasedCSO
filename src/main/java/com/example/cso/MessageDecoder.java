@@ -1,48 +1,41 @@
 package com.example.cso;
 
+import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import javax.websocket.DecodeException;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
 
-public class MessageDecoder implements Decoder.Binary<JSONObject> {
+public class MessageDecoder implements Decoder.Text<JSONObject> {
 
     @Override
-    public JSONObject decode(ByteBuffer bytes) throws DecodeException {
-        String converted = null;
-        JSONObject json = new JSONObject();
+    public JSONObject decode(String message) throws DecodeException {
         try {
-            converted = new String(bytes.array(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            return new JSONObject(message);
+        } catch (JSONException e) {
+            throw new DecodeException(message, "Invalid CSO JSON message", e);
         }
-        JSONParser parser = new JSONParser();
-        try {
-            json = (JSONObject) parser.parse(converted);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return json ;
-
     }
 
     @Override
-    public boolean willDecode(ByteBuffer bytes) {
-        return true;
+    public boolean willDecode(String message) {
+        if (message == null || !message.trim().startsWith("{")) {
+            return false;
+        }
+        try {
+            new JSONObject(message);
+            return true;
+        } catch (JSONException e) {
+            return false;
+        }
     }
 
     @Override
     public void init(EndpointConfig config) {
-
     }
 
     @Override
     public void destroy() {
-
     }
 }
