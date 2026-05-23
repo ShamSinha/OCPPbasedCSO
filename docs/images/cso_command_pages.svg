@@ -8,7 +8,7 @@
   <rect x="110" y="79" width="74" height="32" rx="6" fill="#e9eef5"/>
   <text x="134" y="100" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#182433">Back</text>
   <text x="220" y="86" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#57708f">OCPP COMMAND</text>
-  <text x="220" y="112" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#182433">Set Variables</text>
+  <text x="220" y="112" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#182433">Get Variables</text>
 
   <rect x="110" y="154" width="610" height="140" rx="8" fill="#ffffff" stroke="#d8e0ea"/>
   <text x="132" y="184" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#182433">Request Items</text>
@@ -20,11 +20,11 @@
   <text x="146" y="220" font-family="Arial, sans-serif" font-size="12" fill="#57708f">Component</text>
   <text x="294" y="220" font-family="Arial, sans-serif" font-size="12" fill="#57708f">Variable</text>
   <text x="444" y="220" font-family="Arial, sans-serif" font-size="12" fill="#57708f">Attribute</text>
-  <text x="574" y="220" font-family="Arial, sans-serif" font-size="12" fill="#57708f">Value</text>
+  <text x="574" y="220" font-family="Arial, sans-serif" font-size="12" fill="#57708f">Attribute type</text>
   <text x="146" y="250" font-family="Arial, sans-serif" font-size="13" fill="#182433">OCPPCommCtrlr</text>
   <text x="294" y="250" font-family="Arial, sans-serif" font-size="13" fill="#182433">HeartbeatInterval</text>
   <text x="444" y="250" font-family="Arial, sans-serif" font-size="13" fill="#182433">Actual</text>
-  <text x="574" y="250" font-family="Arial, sans-serif" font-size="13" fill="#182433">300</text>
+  <text x="574" y="250" font-family="Arial, sans-serif" font-size="13" fill="#182433">Actual</text>
 
   <rect x="746" y="154" width="244" height="140" rx="8" fill="#ffffff" stroke="#d8e0ea"/>
   <text x="768" y="184" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#182433">Add Item</text>
@@ -34,7 +34,7 @@
   <text x="800" y="260" font-family="Arial, sans-serif" font-size="13" fill="#182433">Add</text>
   <text x="902" y="260" font-family="Arial, sans-serif" font-size="13" fill="#b42318">Delete</text>
   <rect x="110" y="310" width="880" height="34" rx="8" fill="#ffffff" stroke="#d8e0ea"/>
-  <text x="132" y="332" font-family="Arial, sans-serif" font-size="13" fill="#2d3b4f">SetVariables response from CS01.</text>
+  <text x="132" y="332" font-family="Arial, sans-serif" font-size="13" fill="#2d3b4f">GetVariables response from CS01.</text>
   <rect x="820" y="315" width="148" height="24" rx="6" fill="#1570ef"/>
   <text x="854" y="332" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">Send Request</text>
 
