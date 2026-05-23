@@ -1,6 +1,7 @@
 package com.example.cso;
 
 import org.glassfish.tyrus.client.ClientManager;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject ;
 
@@ -15,6 +16,8 @@ import java.net.URI;
 )
 
 public class MyClientEndPoint {
+
+    private static final String DEFAULT_CHARGING_STATION_ID = "CS01";
 
     private Session session ;
     private static final MyClientEndPoint instance = new MyClientEndPoint(); // Eagerly Loading of single ton instance
@@ -140,6 +143,49 @@ public class MyClientEndPoint {
         } catch (JSONException e) {
             throw new IOException("Could not build RFID delete request.", e);
         }
+    }
+
+    public void sendSetVariables(JSONArray setVariableData) throws IOException {
+        try {
+            sendOcppCommand(DEFAULT_CHARGING_STATION_ID, "SetVariables",
+                    new JSONObject().put("setVariableData", setVariableData));
+        } catch (JSONException e) {
+            throw new IOException("Could not build SetVariables request.", e);
+        }
+    }
+
+    public void sendGetVariables(JSONArray getVariableData) throws IOException {
+        try {
+            sendOcppCommand(DEFAULT_CHARGING_STATION_ID, "GetVariables",
+                    new JSONObject().put("getVariableData", getVariableData));
+        } catch (JSONException e) {
+            throw new IOException("Could not build GetVariables request.", e);
+        }
+    }
+
+    public void sendSetDisplayMessage(JSONObject message) throws IOException {
+        try {
+            sendOcppCommand(DEFAULT_CHARGING_STATION_ID, "SetDisplayMessage",
+                    new JSONObject().put("message", message));
+        } catch (JSONException e) {
+            throw new IOException("Could not build SetDisplayMessage request.", e);
+        }
+    }
+
+    public void sendGetDisplayMessages(JSONObject filter) throws IOException {
+        try {
+            sendOcppCommand(DEFAULT_CHARGING_STATION_ID, "GetDisplayMessages", filter);
+        } catch (JSONException e) {
+            throw new IOException("Could not build GetDisplayMessages request.", e);
+        }
+    }
+
+    public void sendOcppCommand(String chargingStationId, String action, JSONObject payload) throws IOException, JSONException {
+        send(new JSONObject()
+                .put("type", "ForwardOcppCall")
+                .put("chargingStationId", chargingStationId)
+                .put("action", action)
+                .put("payload", payload == null ? new JSONObject() : payload));
     }
 
     private void send(JSONObject object) throws IOException {

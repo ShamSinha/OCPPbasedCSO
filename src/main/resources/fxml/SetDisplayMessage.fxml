@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.cso.SetMessageController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="670.0" prefWidth="950.0" styleClass="page-root" stylesheets="@../styles/cso-command.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cso.SetMessageController">
+    <children>
+        <Pane layoutX="0.0" layoutY="0.0" prefHeight="96.0" prefWidth="950.0" styleClass="page-header" />
+        <Button layoutX="40.0" layoutY="32.0" mnemonicParsing="false" onAction="#setBack" styleClass="secondary-button" text="Back" />
+        <Text layoutX="140.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-kicker" text="OCPP COMMAND" />
+        <Text layoutX="140.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Set Display Message" />
 
+        <GridPane hgap="18.0" layoutX="40.0" layoutY="124.0" prefHeight="390.0" prefWidth="870.0" styleClass="surface" vgap="12.0">
+            <padding>
+                <Insets bottom="22.0" left="22.0" right="22.0" top="22.0" />
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints minWidth="110.0" prefWidth="125.0" />
+                <ColumnConstraints minWidth="190.0" prefWidth="250.0" />
+                <ColumnConstraints minWidth="110.0" prefWidth="125.0" />
+                <ColumnConstraints minWidth="190.0" prefWidth="250.0" />
+            </columnConstraints>
+            <children>
+                <Label styleClass="section-title" text="Message Details" GridPane.columnSpan="4" />
+
+                <Label styleClass="field-label" text="Message ID" GridPane.rowIndex="1" />
+                <TextField fx:id="messageIdField" prefHeight="30.0" promptText="1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label styleClass="field-label" text="Format" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <ComboBox fx:id="formatBox" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                <Label styleClass="field-label" text="Priority" GridPane.rowIndex="2" />
+                <ComboBox fx:id="priorityBox" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label styleClass="field-label" text="State" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <ComboBox fx:id="stateBox" prefHeight="30.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+
+                <Label styleClass="field-label" text="Start Date-Time" GridPane.rowIndex="3" />
+                <TextField fx:id="startField" prefHeight="30.0" promptText="2026-05-23T10:00:00Z" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label styleClass="field-label" text="End Date-Time" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <TextField fx:id="endField" prefHeight="30.0" promptText="2026-05-23T18:00:00Z" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+
+                <Label styleClass="field-label" text="Transaction ID" GridPane.rowIndex="4" />
+                <TextField fx:id="transactionField" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label styleClass="field-label" text="Language" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <TextField fx:id="languageField" prefHeight="30.0" promptText="en" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+
+                <Label styleClass="field-label" text="Content" GridPane.rowIndex="5" />
+                <TextArea fx:id="contentArea" prefHeight="125.0" prefWidth="645.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+            </children>
+        </GridPane>
+
+        <Pane layoutX="40.0" layoutY="584.0" prefHeight="56.0" prefWidth="870.0" styleClass="surface" />
+        <Text fx:id="statusText" layoutX="58.0" layoutY="617.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="status-text" wrappingWidth="610.0" />
+        <Button layoutX="724.0" layoutY="598.0" mnemonicParsing="false" onAction="#setSendMessage" prefWidth="168.0" styleClass="primary-button" text="Send Message" />
+    </children>
 </AnchorPane>

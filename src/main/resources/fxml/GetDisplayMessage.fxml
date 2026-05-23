@@ -5,64 +5,54 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cso.GetMessageController">
-        <children>
-            <Label layoutX="340.0" layoutY="53.0" prefHeight="46.0" prefWidth="268.0" text="Get Display Message">
-                <font>
-                    <Font size="29.0" />
-                </font>
-            </Label>
-            <Button fx:id="Back" layoutX="61.0" layoutY="63.0" mnemonicParsing="false" onAction="#setBack" prefHeight="30.0" prefWidth="54.0" text="Back" />
-            <Text layoutX="162.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-            <VBox layoutX="54.0" layoutY="179.0" prefHeight="250.0" prefWidth="717.0">
-                <children>
-                    <TableView prefHeight="235.0" prefWidth="713.0">
-                        <columns>
-                            <TableColumn prefWidth="96.80001831054688" text="Message ID" />
-                            <TableColumn prefWidth="99.19998168945312" text="Priority" />
-                            <TableColumn prefWidth="89.60003662109375" text="State" />
-                            <TableColumn prefWidth="109.5999755859375" text="Start Date-Time" />
-                            <TableColumn prefWidth="106.4000244140625" text="End Date-Time" />
-                            <TableColumn prefWidth="234.39996337890625" text="Content" />
-                        </columns>
-                    </TableView>
-                </children>
-            </VBox>
-            <HBox layoutX="54.0" layoutY="458.0" prefHeight="30.0" prefWidth="764.0">
-                <children>
-                    <RadioButton fx:id="MessageId" mnemonicParsing="false" text="Message Id">
-                        <padding>
-                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                        </padding>
-                    </RadioButton>
-                    <RadioButton fx:id="Priority" mnemonicParsing="false" text="Priority">
-                        <padding>
-                            <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
-                        </padding>
-                    </RadioButton>
-                    <RadioButton fx:id="State" mnemonicParsing="false" text="State">
-                        <padding>
-                            <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
-                        </padding>
-                    </RadioButton>
-                    <ComboBox fx:id="comboBox" prefWidth="177.0">
-                        <HBox.margin>
-                            <Insets bottom="10.0" left="25.0" right="20.0" top="7.0" />
-                        </HBox.margin>
-                    </ComboBox>
-                    <Button fx:id="GetMessage" mnemonicParsing="false" onAction="#setGetMessage" text="Get Message">
-                        <HBox.margin>
-                            <Insets bottom="10.0" left="50.0" right="20.0" top="7.0" />
-                        </HBox.margin>
-                    </Button>
+<AnchorPane prefHeight="670.0" prefWidth="950.0" styleClass="page-root" stylesheets="@../styles/cso-command.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cso.GetMessageController">
+    <children>
+        <Pane layoutX="0.0" layoutY="0.0" prefHeight="96.0" prefWidth="950.0" styleClass="page-header" />
+        <Button fx:id="Back" layoutX="40.0" layoutY="32.0" mnemonicParsing="false" onAction="#setBack" styleClass="secondary-button" text="Back" />
+        <Text layoutX="140.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-kicker" text="OCPP COMMAND" />
+        <Text layoutX="140.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Get Display Messages" />
 
-                </children>
-            </HBox>
-            <Button fx:id="Replace" layoutX="814.0" layoutY="233.0" mnemonicParsing="false" onAction="#setReplace" text="Replace" />
-            <Button fx:id="Clear" layoutX="821.0" layoutY="308.0" mnemonicParsing="false" onAction="#setClear" text="Clear" />
-      <Text fx:id="description" layoutX="346.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="296.13671875">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Text>
-        </children>
+        <VBox layoutX="40.0" layoutY="124.0" prefHeight="390.0" prefWidth="620.0" spacing="12.0" styleClass="surface">
+            <padding>
+                <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
+            </padding>
+            <children>
+                <Label styleClass="section-title" text="Messages" />
+                <TableView prefHeight="320.0" prefWidth="584.0">
+                    <columns>
+                        <TableColumn prefWidth="86.0" text="Message ID" />
+                        <TableColumn prefWidth="92.0" text="Priority" />
+                        <TableColumn prefWidth="84.0" text="State" />
+                        <TableColumn prefWidth="118.0" text="Start Date-Time" />
+                        <TableColumn prefWidth="118.0" text="End Date-Time" />
+                        <TableColumn prefWidth="84.0" text="Content" />
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+
+        <VBox layoutX="690.0" layoutY="124.0" prefHeight="390.0" prefWidth="220.0" spacing="11.0" styleClass="surface">
+            <padding>
+                <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
+            </padding>
+            <children>
+                <Label styleClass="section-title" text="Filter" />
+                <RadioButton fx:id="MessageId" mnemonicParsing="false" text="Message ID" />
+                <RadioButton fx:id="Priority" mnemonicParsing="false" text="Priority" />
+                <RadioButton fx:id="State" mnemonicParsing="false" text="State" />
+                <ComboBox fx:id="comboBox" prefHeight="30.0" prefWidth="184.0" />
+                <Button fx:id="GetMessage" mnemonicParsing="false" onAction="#setGetMessage" prefWidth="184.0" styleClass="primary-button" text="Get Messages" />
+                <HBox spacing="10.0">
+                    <children>
+                        <Button fx:id="Replace" mnemonicParsing="false" onAction="#setReplace" prefWidth="87.0" styleClass="secondary-button" text="Replace" />
+                        <Button fx:id="Clear" mnemonicParsing="false" onAction="#setClear" prefWidth="87.0" styleClass="danger-button" text="Clear" />
+                    </children>
+                </HBox>
+                <Text fx:id="description" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="description-text" wrappingWidth="184.0" />
+            </children>
+        </VBox>
+
+        <Pane layoutX="40.0" layoutY="584.0" prefHeight="56.0" prefWidth="870.0" styleClass="surface" />
+        <Text fx:id="statusText" layoutX="58.0" layoutY="617.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="status-text" wrappingWidth="610.0" />
+    </children>
 </AnchorPane>

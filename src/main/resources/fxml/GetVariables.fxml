@@ -1,49 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cso.GetVariablesController">
+<AnchorPane prefHeight="670.0" prefWidth="950.0" styleClass="page-root" stylesheets="@../styles/cso-command.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cso.GetVariablesController">
     <children>
-        <TableView fx:id="getVariableTable" layoutX="81.0" layoutY="182.0" prefHeight="288.0" prefWidth="658.0">
-            <columns>
-                <TableColumn fx:id="componentCol1" prefWidth="168.20001220703125" text="Component">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="component" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="variableCol1" prefWidth="219.19998168945312" text="Variable">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="variable" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="attributeTypeCol1" minWidth="4.8000335693359375" prefWidth="137.60003662109375" text="Attribute Type">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="attributeType" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="attributeValueCol1" minWidth="0.0" prefWidth="132.5999755859375" text="Attribute Value">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="attributeValue" />
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
-        <ComboBox fx:id="componentBox1" layoutX="81.0" layoutY="504.0" prefWidth="150.0" promptText="Component" />
-        <ComboBox fx:id="variableBox1" layoutX="335.0" layoutY="504.0" prefWidth="150.0" promptText="Variable" />
-        <ComboBox fx:id="attributeTypeBox1" layoutX="547.0" layoutY="503.0" prefHeight="26.0" prefWidth="120.0" promptText="Attribute Type" />
-        <Button layoutX="710.0" layoutY="503.0" mnemonicParsing="false" onAction="#AddButton1" prefHeight="26.0" prefWidth="58.0" text="Add" />
-        <Button layoutX="780.0" layoutY="364.0" mnemonicParsing="false" text="Get Variables Request" />
-        <Label layoutX="407.0" layoutY="62.0" text="Get Variables">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Label>
-      <Button layoutX="838.0" layoutY="503.0" mnemonicParsing="false" onAction="#DeleteButton1" text="Delete" />
-      <Button layoutX="61.0" layoutY="67.0" mnemonicParsing="false" onAction="#setBack1" text="Back" />
-      <Text fx:id="componentDescription1" layoutX="81.0" layoutY="562.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="204.13671875" />
-      <Text fx:id="variableDescription1" layoutX="335.0" layoutY="561.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="188.13671875" />
+        <Pane layoutX="0.0" layoutY="0.0" prefHeight="96.0" prefWidth="950.0" styleClass="page-header" />
+        <Button layoutX="40.0" layoutY="32.0" mnemonicParsing="false" onAction="#setBack1" styleClass="secondary-button" text="Back" />
+        <Text layoutX="140.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-kicker" text="OCPP COMMAND" />
+        <Text layoutX="140.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Get Variables" />
+
+        <VBox layoutX="40.0" layoutY="124.0" prefHeight="400.0" prefWidth="620.0" spacing="12.0" styleClass="surface">
+            <padding>
+                <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
+            </padding>
+            <children>
+                <Label styleClass="section-title" text="Request Items" />
+                <TableView fx:id="getVariableTable" prefHeight="330.0" prefWidth="584.0">
+                    <columns>
+                        <TableColumn fx:id="componentCol1" prefWidth="155.0" text="Component">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="component" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="variableCol1" prefWidth="210.0" text="Variable">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="variable" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="attributeTypeCol1" prefWidth="120.0" text="Attribute Type">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="attributeType" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="attributeValueCol1" prefWidth="97.0" text="Value">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="attributeValue" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </children>
+        </VBox>
+
+        <VBox layoutX="690.0" layoutY="124.0" prefHeight="400.0" prefWidth="220.0" spacing="10.0" styleClass="surface">
+            <padding>
+                <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
+            </padding>
+            <children>
+                <Label styleClass="section-title" text="Add Item" />
+                <Label styleClass="field-label" text="Component" />
+                <ComboBox fx:id="componentBox1" prefHeight="30.0" prefWidth="184.0" promptText="Component" />
+                <Label styleClass="field-label" text="Variable" />
+                <ComboBox fx:id="variableBox1" prefHeight="30.0" prefWidth="184.0" promptText="Variable" />
+                <Label styleClass="field-label" text="Attribute Type" />
+                <ComboBox fx:id="attributeTypeBox1" prefHeight="30.0" prefWidth="184.0" promptText="Attribute Type" />
+                <HBox spacing="10.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#AddButton1" prefWidth="86.0" styleClass="secondary-button" text="Add" />
+                        <Button mnemonicParsing="false" onAction="#DeleteButton1" prefWidth="86.0" styleClass="danger-button" text="Delete" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <Text fx:id="componentDescription1" layoutX="58.0" layoutY="555.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="description-text" wrappingWidth="290.0" />
+        <Text fx:id="variableDescription1" layoutX="368.0" layoutY="555.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="description-text" wrappingWidth="290.0" />
+
+        <Pane layoutX="40.0" layoutY="584.0" prefHeight="56.0" prefWidth="870.0" styleClass="surface" />
+        <Text fx:id="statusText1" layoutX="58.0" layoutY="617.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="status-text" wrappingWidth="610.0" />
+        <Button layoutX="724.0" layoutY="598.0" mnemonicParsing="false" onAction="#setGetVariablesRequest" prefWidth="168.0" styleClass="primary-button" text="Send Request" />
     </children>
 </AnchorPane>

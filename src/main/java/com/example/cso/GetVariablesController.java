@@ -1,5 +1,6 @@
 package com.example.cso;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +38,8 @@ public class GetVariablesController implements Initializable {
     Text componentDescription1 = new Text();
     @FXML
     Text variableDescription1 = new Text();
+    @FXML
+    Text statusText1 = new Text();
 
     @FXML
     TableView<GetVariableDataType> getVariableTable = new TableView<GetVariableDataType>();
@@ -82,7 +88,31 @@ public class GetVariablesController implements Initializable {
 
 
         set();
+        listenForOcppResponses();
     }
+
+    @FXML
+    protected void setGetVariablesRequest(ActionEvent event) {
+        if (getVariableTable.getItems().isEmpty()) {
+            setStatus("Add at least one variable first.");
+            return;
+        }
+
+        JSONArray getVariableData = new JSONArray();
+        try {
+            for (GetVariableDataType variable : getVariableTable.getItems()) {
+                getVariableData.put(new JSONObject()
+                        .put("component", variable.getComponent())
+                        .put("variable", variable.getVariable())
+                        .put("attributeEnumType", normalizeAttributeType(variable.getAttributeType())));
+            }
+            MyClientEndPoint.getInstance().sendGetVariables(getVariableData);
+            setStatus("Sent GetVariables for " + getVariableData.length() + " item(s).");
+        } catch (JSONException | IOException e) {
+            setStatus(e.getMessage());
+        }
+    }
+
     @FXML
     protected void DeleteButton1(ActionEvent event) throws IOException{
         ObservableList<GetVariableDataType> variableSelected , allVariables ;
@@ -97,7 +127,13 @@ public class GetVariablesController implements Initializable {
 
     @FXML
     protected void AddButton1(ActionEvent event) throws IOException {
+        if (isBlank(componentBox1.getValue()) || isBlank(variableBox1.getValue())
+                || isBlank(attributeTypeBox1.getValue())) {
+            setStatus("Choose component, variable, and attribute type.");
+            return;
+        }
         getVariableTable.getItems().addAll(new GetVariableDataType(componentBox1.getValue(),variableBox1.getValue(),attributeTypeBox1.getValue(),""));
+        setStatus("Added variable row.");
 
         componentBox1.getSelectionModel().clearSelection();
         variableBox1.getSelectionModel().clearSelection();
@@ -197,5 +233,37 @@ public class GetVariablesController implements Initializable {
 
         if(s.equals("TariffCostCtrlr")){
             componentDescription1.setText("TariffCostCtrlr: Responsible for configuration relating to tariff and cost display.");}
+    }
+
+    private String normalizeAttributeType(String attributeType) {
+        if ("Minset".equals(attributeType)) {
+            return "MinSet";
+        }
+        return attributeType == null || attributeType.trim().length() == 0 ? "Actual" : attributeType;
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.trim().length() == 0;
+    }
+
+    private void setStatus(String message) {
+        statusText1.setText(message == null ? "" : message);
+    }
+
+    private void listenForOcppResponses() {
+        MyClientEndPoint.getInstance().setMessageListener(new CsoMessageListener() {
+            @Override
+            public void onMessage(final JSONObject message) {
+                if (!CsoOcppStatus.isOcppMessage(message)) {
+                    return;
+                }
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        setStatus(CsoOcppStatus.text(message));
+                    }
+                });
+            }
+        });
     }
 }

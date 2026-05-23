@@ -1,5 +1,6 @@
 package com.example.cso;
 
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -13,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +34,7 @@ public class GetMessageController implements Initializable {
 
     @FXML public ComboBox<String> comboBox ;
     @FXML public Text description ;
+    @FXML public Text statusText ;
     Toggle toggle ;
 
 
@@ -43,6 +47,7 @@ public class GetMessageController implements Initializable {
         group.selectedToggleProperty().addListener(((observable, oldValue, newValue) -> processRadioButton(newValue)));
         listenComboBox();
         group.selectToggle(MessageId);
+        listenForOcppResponses();
 
     }
 
@@ -141,18 +146,63 @@ public class GetMessageController implements Initializable {
 
     @FXML
     protected void setReplace(ActionEvent event) throws IOException {
-
+        Parent configureView = FXMLLoader.load(getClass().getResource("/fxml/SetDisplayMessage.fxml"));
+        Scene scene = new Scene(configureView);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow() ;
+        window.setScene(scene);
+        window.show();
     }
 
     @FXML
     protected void setClear(ActionEvent event) throws IOException {
-
+        setStatus("ClearDisplayMessage is not wired in this basic build.");
     }
 
     @FXML
     protected void setGetMessage(ActionEvent event) throws IOException {
+        String value = comboBox.getValue();
+        if (value == null || value.trim().length() == 0) {
+            setStatus("Choose a display-message filter.");
+            return;
+        }
 
+        try {
+            JSONObject request = new JSONObject()
+                    .put("requestId", (int) (System.currentTimeMillis() & 0x7fffffff));
+            if (toggle == MessageId && !"Get All Messages".equals(value)) {
+                request.put("id", Integer.parseInt(value));
+            } else if (toggle == Priority) {
+                request.put("priority", value);
+            } else if (toggle == State) {
+                request.put("state", value);
+            }
+
+            MyClientEndPoint.getInstance().sendGetDisplayMessages(request);
+            setStatus("Sent GetDisplayMessages request.");
+        } catch (JSONException | IOException | NumberFormatException e) {
+            setStatus(e.getMessage());
+        }
     }
 
+    private void setStatus(String message) {
+        statusText.setText(message == null ? "" : message);
+    }
+
+    private void listenForOcppResponses() {
+        MyClientEndPoint.getInstance().setMessageListener(new CsoMessageListener() {
+            @Override
+            public void onMessage(final JSONObject message) {
+                if (!CsoOcppStatus.isOcppMessage(message)) {
+                    return;
+                }
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        setStatus(CsoOcppStatus.text(message));
+                    }
+                });
+            }
+        });
+    }
 
 }

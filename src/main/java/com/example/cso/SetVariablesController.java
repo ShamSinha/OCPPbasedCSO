@@ -1,5 +1,6 @@
 package com.example.cso;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +40,8 @@ public class SetVariablesController implements Initializable {
     Text componentDescription = new Text();
     @FXML
     Text variableDescription = new Text();
+    @FXML
+    Text statusText = new Text();
 
     @FXML
     TableView<SetVariableDataType> setVariableTable = new TableView<SetVariableDataType>();
@@ -87,7 +93,32 @@ public class SetVariablesController implements Initializable {
 
 
         set();
+        listenForOcppResponses();
     }
+
+    @FXML
+    protected void setSetVariablesRequest(ActionEvent event) {
+        if (setVariableTable.getItems().isEmpty()) {
+            setStatus("Add at least one variable first.");
+            return;
+        }
+
+        JSONArray setVariableData = new JSONArray();
+        try {
+            for (SetVariableDataType variable : setVariableTable.getItems()) {
+                setVariableData.put(new JSONObject()
+                        .put("component", variable.getComponent())
+                        .put("variable", variable.getVariable())
+                        .put("attributeEnumType", normalizeAttributeType(variable.getAttributeType()))
+                        .put("attributeValue", variable.getAttributeValue()));
+            }
+            MyClientEndPoint.getInstance().sendSetVariables(setVariableData);
+            setStatus("Sent SetVariables for " + setVariableData.length() + " item(s).");
+        } catch (JSONException | IOException e) {
+            setStatus(e.getMessage());
+        }
+    }
+
     @FXML
     protected void DeleteButton(ActionEvent event) throws IOException{
         ObservableList<SetVariableDataType> variableSelected , allVariables ;
@@ -102,8 +133,14 @@ public class SetVariablesController implements Initializable {
 
     @FXML
     protected void AddButton(ActionEvent event) throws IOException {
+        if (isBlank(componentBox.getValue()) || isBlank(variableBox.getValue())
+                || isBlank(attributeTypeBox.getValue()) || isBlank(attributeValueField.getText())) {
+            setStatus("Choose component, variable, attribute type, and value.");
+            return;
+        }
         variableData.add(new SetVariableDataType(componentBox.getValue(),variableBox.getValue(),attributeTypeBox.getValue(),attributeValueField.getText())) ;
         setVariableTable.setItems(variableData);
+        setStatus("Added variable row.");
 
         componentBox.getSelectionModel().clearSelection();
         variableBox.getSelectionModel().clearSelection();
@@ -204,5 +241,37 @@ public class SetVariablesController implements Initializable {
 
         if(s.equals("TariffCostCtrlr")){
             componentDescription.setText("TariffCostCtrlr: Responsible for configuration relating to tariff and cost display.");}
+    }
+
+    private String normalizeAttributeType(String attributeType) {
+        if ("Minset".equals(attributeType)) {
+            return "MinSet";
+        }
+        return attributeType == null || attributeType.trim().length() == 0 ? "Actual" : attributeType;
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.trim().length() == 0;
+    }
+
+    private void setStatus(String message) {
+        statusText.setText(message == null ? "" : message);
+    }
+
+    private void listenForOcppResponses() {
+        MyClientEndPoint.getInstance().setMessageListener(new CsoMessageListener() {
+            @Override
+            public void onMessage(final JSONObject message) {
+                if (!CsoOcppStatus.isOcppMessage(message)) {
+                    return;
+                }
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        setStatus(CsoOcppStatus.text(message));
+                    }
+                });
+            }
+        });
     }
 }

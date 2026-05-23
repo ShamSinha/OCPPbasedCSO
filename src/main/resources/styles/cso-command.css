@@ -1,0 +1,91 @@
+.page-root {
+    -fx-background-color: #f4f7fb;
+    -fx-font-family: "System";
+}
+
+.page-header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d8e0ea;
+    -fx-border-width: 0 0 1 0;
+}
+
+.page-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 700;
+    -fx-fill: #182433;
+}
+
+.page-kicker {
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-fill: #57708f;
+}
+
+.surface {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d8e0ea;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.section-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #182433;
+}
+
+.field-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #57708f;
+}
+
+.primary-button {
+    -fx-background-color: #1570ef;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-background-radius: 6;
+    -fx-padding: 7 14 7 14;
+}
+
+.secondary-button {
+    -fx-background-color: #e9eef5;
+    -fx-text-fill: #182433;
+    -fx-font-weight: 700;
+    -fx-background-radius: 6;
+    -fx-padding: 7 14 7 14;
+}
+
+.danger-button {
+    -fx-background-color: #fff1f0;
+    -fx-text-fill: #b42318;
+    -fx-font-weight: 700;
+    -fx-background-radius: 6;
+    -fx-padding: 7 14 7 14;
+}
+
+.status-text {
+    -fx-fill: #2d3b4f;
+    -fx-font-size: 12px;
+}
+
+.description-text {
+    -fx-fill: #57708f;
+    -fx-font-size: 12px;
+}
+
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d8e0ea;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.combo-box,
+.text-field,
+.text-area {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #c9d4e2;
+    -fx-background-color: #ffffff;
+}

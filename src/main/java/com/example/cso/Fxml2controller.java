@@ -64,6 +64,15 @@ public class Fxml2controller implements Initializable {
         window.show();
     }
 
+    @FXML
+    protected void setSetMessage(ActionEvent event) throws IOException {
+        Parent configureView = FXMLLoader.load(getClass().getResource("/fxml/SetDisplayMessage.fxml"));
+        Scene scene = new Scene(configureView);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow() ;
+        window.setScene(scene);
+        window.show();
+    }
+
     public void setChoiceForBaseReport() {
         BaseReportType.setItems(FXCollections.observableArrayList("ConfigurationInventory" , "FullInventory" , "SummaryInventory")) ;
         BaseReportType.setValue("ConfigurationInventory");

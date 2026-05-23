@@ -212,6 +212,10 @@ public class Fxml1controller implements Initializable {
         }
         if ("RfidUsers".equals(type)) {
             updateRfidUsers(message);
+            return;
+        }
+        if (CsoOcppStatus.isOcppMessage(message)) {
+            setRfidStatus(CsoOcppStatus.text(message));
         }
     }
 
